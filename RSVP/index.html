@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>You are invited</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;1,6..96,400;1,6..96,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --plum:#241530; --plum2:#3a2247; --ivory:#f6eee8; --rose:#d9a5a0; --brass:#c9a36b; --ink:#2a1a33;
+  --serif:"Bodoni Moda",Georgia,serif; --sans:"Jost",system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--plum);color:var(--ivory);font-family:var(--sans);font-weight:300;line-height:1.6}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--brass);outline-offset:3px}
+
+.hero{min-height:100svh;display:grid;place-items:center;text-align:center;padding:48px 24px;position:relative;
+  background:radial-gradient(ellipse at 50% 30%,var(--plum2) 0%,var(--plum) 70%)}
+.hero::before{content:"";position:absolute;inset:16px;border:1px solid rgba(201,163,107,.55);pointer-events:none}
+.hero::after{content:"";position:absolute;inset:22px;border:1px solid rgba(201,163,107,.2);pointer-events:none}
+.names{font-family:var(--serif);font-style:italic;font-weight:400;margin:0;line-height:.95;
+  font-size:clamp(3.6rem,15vw,9rem);letter-spacing:-.01em;animation:rise 1.6s cubic-bezier(.2,.7,.2,1) both}
+.names .amp{display:block;font-size:.42em;color:var(--brass);margin:.12em 0}
+.when{font-size:1.05rem;letter-spacing:.06em;margin:2.2rem 0 .3rem}
+.sub{color:var(--rose);margin:0 0 2rem;font-size:.95rem}
+.count{display:flex;gap:clamp(14px,4vw,34px);justify-content:center;margin:0 0 2.4rem;font-family:var(--serif)}
+.count div{min-width:56px}
+.count b{display:block;font-size:clamp(1.6rem,6vw,2.4rem);font-weight:400;color:var(--brass)}
+.count span{font-family:var(--sans);font-size:.78rem;color:rgba(246,238,232,.7)}
+.btn{display:inline-block;background:var(--brass);color:var(--plum);padding:14px 34px;border:0;border-radius:999px;
+  font:500 1rem var(--sans);text-decoration:none;cursor:pointer;transition:background .2s,transform .2s}
+.btn:hover{background:#dcb87f;transform:translateY(-1px)}
+@keyframes rise{from{opacity:0;transform:translateY(18px);filter:blur(6px)}to{opacity:1;transform:none;filter:none}}
+
+.details{max-width:1000px;margin:0 auto;padding:96px 24px;display:grid;grid-template-columns:repeat(3,1fr);gap:40px 0;text-align:center}
+.details .ev{padding:0 22px}
+.details .ev+.ev{border-left:1px solid rgba(201,163,107,.45)}
+.details h2{font-family:var(--serif);font-style:italic;font-weight:400;font-size:1.8rem;line-height:1.15;margin:0 0 .8rem;color:var(--rose)}
+.details p{margin:.2rem 0}
+.details .time{font-size:1.15rem}
+.details a{color:var(--brass)}
+.note{grid-column:1/-1;margin:0;color:rgba(246,238,232,.75)}
+
+.rsvp{background:var(--ivory);color:var(--ink);padding:80px 20px 96px}
+.card{max-width:560px;margin:0 auto}
+.card h2{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(2rem,7vw,2.8rem);margin:0 0 .4rem;text-align:center}
+.card .lead{text-align:center;margin:0 0 2.4rem;color:#5a4863}
+label,.legend{display:block;font-size:.9rem;color:#5a4863;margin:1.6rem 0 .3rem}
+input[type=text],input[type=tel],input[type=email],select,textarea{width:100%;background:transparent;border:0;border-bottom:1px solid #b9a7b9;
+  padding:8px 2px;font:400 1.05rem var(--sans);color:var(--ink);border-radius:0}
+textarea{resize:vertical;min-height:70px}
+input:focus,select:focus,textarea:focus{outline:0;border-bottom:2px solid var(--plum2)}
+.choice{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:.4rem}
+.multi{display:grid;gap:10px;margin-top:.4rem}
+.choice input,.multi input{position:absolute;opacity:0}
+.choice label,.multi label{margin:0;text-align:center;padding:14px 10px;border:1px solid #b9a7b9;border-radius:999px;color:var(--ink);cursor:pointer;font-size:1rem;transition:all .2s}
+.choice input:checked+label,.multi input:checked+label{background:var(--plum);border-color:var(--plum);color:var(--ivory)}
+.choice input:focus-visible+label,.multi input:focus-visible+label{outline:2px solid var(--brass);outline-offset:3px}
+.hide{display:none}
+.hp{position:absolute;left:-9999px}
+.submit{width:100%;margin-top:2.4rem;background:var(--plum);color:var(--ivory)}
+.submit:hover{background:var(--plum2)}
+.submit[disabled]{opacity:.6;cursor:wait}
+.msg{margin-top:1.2rem;text-align:center;color:#8a2f3a}
+.thanks{text-align:center;padding:24px 0;animation:rise .9s both}
+.thanks h3{font-family:var(--serif);font-style:italic;font-weight:400;font-size:2.2rem;margin:0 0 .6rem}
+footer{text-align:center;padding:28px;font-size:.85rem;color:rgba(246,238,232,.6)}
+
+@media(max-width:760px){.details{grid-template-columns:1fr;gap:36px;padding:72px 24px}
+  .details .ev{padding:0}.details .ev+.ev{border-left:0;border-top:1px solid rgba(201,163,107,.45);padding-top:36px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div>
+    <h1 class="names" id="names"></h1>
+    <p class="when" id="when"></p>
+    <p class="sub" id="where"></p>
+    <div class="count" id="count" aria-label="Countdown to the wedding"></div>
+    <a class="btn" href="#rsvp">Reply to this invitation</a>
+  </div>
+</header>
+
+<section class="details" id="details"></section>
+
+<section class="rsvp" id="rsvp">
+  <div class="card">
+    <h2>Will you join us?</h2>
+    <p class="lead" id="lead"></p>
+    <form id="form" novalidate>
+      <label for="name">Your full name</label>
+      <input type="text" id="name" name="name" autocomplete="name" required>
+
+      <span class="legend" id="attlabel">Will you be there?</span>
+      <div class="choice" role="radiogroup" aria-labelledby="attlabel">
+        <div><input type="radio" id="yes" name="attending" value="Yes" required><label for="yes">Joyfully yes</label></div>
+        <div><input type="radio" id="no" name="attending" value="No"><label for="no">Sadly no</label></div>
+      </div>
+
+      <div id="yesOnly" class="hide">
+        <span class="legend" id="evlabel">Which parts will you join?</span>
+        <div class="multi" id="multi" role="group" aria-labelledby="evlabel"></div>
+        <label for="guests">How many people are coming, including you?</label>
+        <select id="guests" name="guests"></select>
+        <label for="diet">Food allergies or dietary needs</label>
+        <input type="text" id="diet" name="diet" placeholder="Leave blank if none">
+      </div>
+
+      <label for="phone">Phone number (WhatsApp if possible)</label>
+      <input type="tel" id="phone" name="phone" autocomplete="tel">
+      <label for="email">Email, to receive a confirmation (optional)</label>
+      <input type="email" id="email" name="email" autocomplete="email">
+      <label for="message">A message for the couple (optional)</label>
+      <textarea id="message" name="message"></textarea>
+
+      <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <button class="btn submit" type="submit" id="send">Send my reply</button>
+      <p class="msg" id="err" role="alert"></p>
+    </form>
+    <div class="thanks hide" id="thanks" role="status"></div>
+  </div>
+</section>
+
+<footer id="foot"></footer>
+
+<script>
+/* ===== EDIT THIS BLOCK ===== */
+const CONFIG = {
+  first: "Becky",
+  second: "Michael",
+  dateISO: "2026-12-18T10:00:00+01:00",
+  dateText: "Friday, 18 December 2026",
+  city: "Buea, Cameroon",
+  rsvpBy: "1 December 2026",
+  events: [
+    { title: "Civil ceremony", time: "10:00 AM", place: "The Court", address: "Buea", map: "" },
+    { title: "Brunch and refreshments", time: "Right after the ceremony", place: "Venue to be announced", address: "Buea", map: "" },
+    { title: "Reception", time: "7:00 PM till dawn", place: "Venue to be announced", address: "Buea", map: "" }
+  ],
+  note: "Black tie, in black and white. Please reply before the date below so we can plan seating.",
+  maxGuests: 5,
+  endpoint: "https://script.google.com/macros/s/AKfycbwtoRi2P0BoI7XZkwUjjraY3qbeqlYNDumAIgXxTYswR2xggwhCxJ8-MRzbZEI2WRhmaA/exec"
+};
+/* =========================== */
+
+const $ = id => document.getElementById(id);
+document.title = `${CONFIG.first} & ${CONFIG.second} | Wedding invitation`;
+$("names").innerHTML = `${CONFIG.first}<span class="amp">&amp;</span>${CONFIG.second}`;
+$("when").textContent = CONFIG.dateText;
+$("where").textContent = CONFIG.city;
+$("lead").textContent = `Please reply by ${CONFIG.rsvpBy}.`;
+$("foot").textContent = `${CONFIG.first} & ${CONFIG.second} · ${CONFIG.dateText}`;
+
+$("details").innerHTML = CONFIG.events.map(e => `
+  <div class="ev"><h2>${e.title}</h2><p class="time">${e.time}</p>${e.place ? `<p>${e.place}</p>` : ""}${e.address ? `<p>${e.address}</p>` : ""}
+  ${e.map ? `<p><a href="${e.map}" target="_blank" rel="noopener">Open in Maps</a></p>` : ""}</div>`).join("")
+  + `<p class="note">${CONFIG.note}</p>`;
+$("details").querySelector(".note").style.gridColumn = "1/-1";
+
+$("multi").innerHTML = CONFIG.events.map((e, i) =>
+  `<div><input type="checkbox" id="ev${i}" name="events" value="${e.title}" checked><label for="ev${i}">${e.title}</label></div>`).join("");
+
+for (let i = 1; i <= CONFIG.maxGuests; i++) $("guests").add(new Option(i === 1 ? "Just me" : i + " people", i));
+
+/* countdown */
+const target = new Date(CONFIG.dateISO).getTime();
+function tick(){
+  let s = Math.max(0, Math.floor((target - Date.now()) / 1000));
+  const d = Math.floor(s / 86400), h = Math.floor(s % 86400 / 3600), m = Math.floor(s % 3600 / 60);
+  $("count").innerHTML = [[d,"days"],[h,"hours"],[m,"minutes"]].map(([n,l]) => `<div><b>${n}</b><span>${l}</span></div>`).join("");
+}
+tick(); setInterval(tick, 30000);
+
+/* form */
+document.querySelectorAll('input[name=attending]').forEach(r => r.addEventListener("change", () => {
+  $("yesOnly").classList.toggle("hide", document.querySelector('input[name=attending]:checked').value !== "Yes");
+}));
+
+$("form").addEventListener("submit", async e => {
+  e.preventDefault();
+  const f = new FormData(e.target), err = $("err");
+  err.textContent = "";
+  if (!f.get("name").trim()) { err.textContent = "Please enter your name."; $("name").focus(); return; }
+  if (!f.get("attending")) { err.textContent = "Please tell us if you can come."; return; }
+  const yes = f.get("attending") === "Yes";
+  const data = {
+    name: f.get("name").trim(), attending: f.get("attending"),
+    guests: yes ? f.get("guests") : 0, diet: yes ? f.get("diet") : "",
+    events: yes ? f.getAll("events").join(", ") : "",
+    phone: f.get("phone"), email: f.get("email"), message: f.get("message"), website: f.get("website")
+  };
+  if (CONFIG.endpoint.startsWith("PASTE")) { err.textContent = "The reply form is not connected yet."; return; }
+  const btn = $("send"); btn.disabled = true; btn.textContent = "Sending...";
+  try {
+    await fetch(CONFIG.endpoint, { method: "POST", mode: "no-cors", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(data) });
+    $("form").classList.add("hide");
+    $("thanks").classList.remove("hide");
+    $("thanks").innerHTML = yes
+      ? `<h3>Thank you, ${data.name.split(" ")[0]}</h3><p>We have your reply and cannot wait to celebrate with you.</p>`
+      : `<h3>Thank you, ${data.name.split(" ")[0]}</h3><p>We will miss you, and we are grateful you let us know.</p>`;
+  } catch (x) {
+    err.textContent = "Your reply was not sent. Check your connection and try again.";
+    btn.disabled = false; btn.textContent = "Send my reply";
+  }
+});
+</script>
+</body>
+</html>
